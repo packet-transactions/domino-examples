@@ -27,10 +27,6 @@ atom_template_list = sys.argv[2]
 
 # result matrix:
 result_matrix = dict()
-for domino_file in open(domino_file_list, "r").read().splitlines():
-  result_matrix[domino_file] = dict()
-  for atom_template in open(atom_template_list, "r").read().splitlines():
-    result_matrix[domino_file][atom_template] = []
 
 # fill in result matrix
 for domino_file in open(domino_file_list, "r").read().splitlines():
@@ -38,22 +34,29 @@ for domino_file in open(domino_file_list, "r").read().splitlines():
     env_vars = os.environ.copy()
     env_vars["ATOM_TEMPLATE"] = atom_template
     out,err = program_wrapper(program = ["domino", domino_file, "int_type_checker,desugar_comp_asgn,if_converter,algebra_simplify,array_validator,stateful_flanks,ssa,expr_propagater,expr_flattener,partitioning,sketch_backend"], environment = env_vars)
+    count = 0
     for line in err.splitlines():
       if "with random seed" in line:
+        count = count + 1
+
+        # Create dictionary if required
+        if (domino_file + str(count)) not in result_matrix:
+          result_matrix[domino_file + str(count)] = dict()
+
         if "succeeded" in line:
-          result_matrix[domino_file][atom_template] += [1]
+          result_matrix[domino_file + str(count)][atom_template] = 1
         if "failed" in line:
-          result_matrix[domino_file][atom_template] += [0]
+          result_matrix[domino_file + str(count)][atom_template] = 0
 
 # first print out atom templates
-print " "*15,
+print " "*20,
 for atom_template in open(atom_template_list, "r").read().splitlines():
   print "%15s"%atom_template,
 print
 
-# Print out result matrix 
-for domino_file in result_matrix:
-  print "%15s"%domino_file,
+# Print out result matrix
+for codelet in result_matrix:
+  print "%20s"%codelet,
   for atom_template in open(atom_template_list, "r").read().splitlines():
-    print "%15s"%result_matrix[domino_file][atom_template],
+    print "%15s"%result_matrix[codelet][atom_template],
   print
