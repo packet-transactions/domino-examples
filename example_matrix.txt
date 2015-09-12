@@ -1,0 +1,15 @@
+                              rw.sk          inc.sk          raw.sk     pred_raw.sk  if_else_raw.sk         pair.sk
+            conga.c1               0               0               0               0               0               1
+         flowlets.c1               1               1               1               1               1               1
+         flowlets.c2               0               0               0               1               1               1
+    heavy_hitters.c1               0               1               1               1               1               1
+    heavy_hitters.c2               0               1               1               1               1               1
+    heavy_hitters.c3               0               1               1               1               1               1
+     learn_filter.c1               1               1               1               1               1               1
+     learn_filter.c2               1               1               1               1               1               1
+     learn_filter.c3               1               1               1               1               1               1
+              rcp.c1               0               0               1               1               1               1
+              rcp.c2               0               0               0               1               1               1
+              rcp.c3               0               0               0               1               1               1
+         sampling.c1               0               0               0               0               1               1
+
