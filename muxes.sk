@@ -1,3 +1,9 @@
+generator bit bitmux2(bit op1, bit op2) {
+  int choice = ??(1);
+  if (choice == 0) return op1;
+  else if (choice == 1) return op2;
+}
+
 generator int mux2(int op1, int op2) {
   int choice = ??(1);
   if (choice == 0) return op1;

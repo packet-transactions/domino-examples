@@ -1,0 +1,46 @@
+struct StateResult {
+  int result_state_1;
+  int result_state_2;
+}
+include "rel_ops.sk";
+include "muxes.sk";
+
+StateResult atom_template(int state_1, int state_2, int pkt_1, int pkt_2, int pkt_3, int pkt_4, int pkt_5) {
+  bit pred1 = rel_op(mux3(pkt_1, pkt_2, ??), mux3(state_1, state_2, ??));
+  bit pred2 = rel_op(mux3(pkt_1, pkt_2, ??), mux3(state_1, state_2, ??));
+  bit pred3 = rel_op(mux3(pkt_1, pkt_2, ??), mux3(state_1, state_2, ??));
+  bit pred4 = rel_op(mux3(pkt_1, pkt_2, ??), mux3(state_1, state_2, ??));
+  if (bool_op(bitmux2(pred1, ??(1)), bitmux2(pred2, ??(1)))) {
+    state_1 = mux4(state_1, pkt_1, pkt_2, ??) + mux3(??, pkt_1, pkt_2);
+    state_2 = mux4(state_2, pkt_1, pkt_2, ??) + mux3(??, pkt_1, pkt_2);
+  } else if (bool_op(bitmux2(pred3, ??(1)), bitmux2(pred4, ??(1)))) {
+    state_1 = mux4(state_1, pkt_1, pkt_2, ??) + mux3(??, pkt_1, pkt_2);
+    state_2 = mux4(state_2, pkt_1, pkt_2, ??) + mux3(??, pkt_1, pkt_2);
+  }
+
+  StateResult ret = new StateResult();
+  ret.result_state_1 = state_1;
+  ret.result_state_2 = state_2;
+  return ret;
+}
+StateResult codelet(int state_1, int state_2, int pkt_1, int pkt_2, int pkt_3, int pkt_4, int pkt_5){
+  if ((state_1 == 0) && (pkt_2 != 0)) {
+    state_1 = 1;
+  } else if ((state_1 != 0) && (pkt_1 != 0)) {
+    state_1 = 0;
+  }
+
+  StateResult ret = new StateResult();
+  ret.result_state_1 = state_1;
+  ret.result_state_2 = state_2;
+  return ret;
+}
+harness void main(int state_1, int state_2, int pkt_1, int pkt_2, int pkt_3, int pkt_4, int pkt_5) {
+  StateResult spec_result = codelet(state_1, state_2, pkt_1, pkt_2, pkt_3, pkt_4, pkt_5);
+
+  StateResult impl_result = atom_template(state_1, state_2, pkt_1, pkt_2, pkt_3, pkt_4, pkt_5);
+
+  // Assert values
+  assert(spec_result.result_state_1 == impl_result.result_state_1);
+  assert(spec_result.result_state_2 == impl_result.result_state_2);
+}

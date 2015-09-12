@@ -11,3 +11,13 @@ generator bit rel_op(int operand1, int operand2) {
     return operand1 == operand2;
   }
 }
+
+generator bit bool_op(bit operand1, bit operand2) {
+  int opcode = ??(1);
+  if (opcode == 0) {
+    return operand1 || operand2;
+  } else {
+    assert(opcode == 1);
+    return operand1 && operand2;
+  }
+}
