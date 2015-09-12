@@ -29,6 +29,7 @@ atom_template_list = sys.argv[2]
 result_matrix = dict()
 
 # fill in result matrix
+codelet_list = []
 for domino_file in open(domino_file_list, "r").read().splitlines():
   for atom_template in open(atom_template_list, "r").read().splitlines():
     env_vars = os.environ.copy()
@@ -38,6 +39,10 @@ for domino_file in open(domino_file_list, "r").read().splitlines():
     for line in err.splitlines():
       if "with random seed" in line:
         count = count + 1
+
+        # Append codelet to codelet_list if it doesn't exist
+        if (domino_file + str(count)) not in codelet_list:
+          codelet_list += [domino_file + str(count)]
 
         # Create dictionary if required
         if (domino_file + str(count)) not in result_matrix:
@@ -55,7 +60,7 @@ for atom_template in open(atom_template_list, "r").read().splitlines():
 print
 
 # Print out result matrix
-for codelet in result_matrix:
+for codelet in codelet_list:
   print "%20s"%codelet,
   for atom_template in open(atom_template_list, "r").read().splitlines():
     print "%15s"%result_matrix[codelet][atom_template],
