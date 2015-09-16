@@ -1,0 +1,89 @@
+struct StateResult {
+  int result_state_1;
+  int result_state_2;
+}
+include "rel_ops.sk";
+include "muxes.sk";
+
+StateResult atom_template(int state_1, int state_2, int pkt_1, int pkt_2, int pkt_3, int pkt_4, int pkt_5) {
+  bit pred1 = rel_op(mux3(state_1, state_2, ??), mux3(pkt_1, pkt_2, ??));
+  bit pred2 = rel_op(mux3(state_1, state_2, ??), mux3(pkt_1, pkt_2, ??));
+  if (pred1) {
+    state_1 = mux4(state_1, pkt_1, pkt_2, ??) + mux3(??, pkt_1, pkt_2);
+    state_2 = mux4(state_2, pkt_1, pkt_2, ??) + mux3(??, pkt_1, pkt_2);
+  } else if (pred2) {
+    state_1 = mux4(state_1, pkt_1, pkt_2, ??) + mux3(??, pkt_1, pkt_2);
+    state_2 = mux4(state_2, pkt_1, pkt_2, ??) + mux3(??, pkt_1, pkt_2);
+  }
+
+  StateResult ret = new StateResult();
+  ret.result_state_1 = state_1;
+  ret.result_state_2 = state_2;
+  return ret;
+}
+
+StateResult codelet(int state_1, int state_2, int pkt_1, int pkt_2, int pkt_3, int pkt_4, int pkt_5){int pkt_tc00;
+int pkt_tc01;
+int pkt_tc02;
+int pkt_tc03;
+int pkt_tmp00;
+int pkt_tmp10;
+int pkt_tmp11;
+int pkt_tmp12;
+int pkt_tmp13;
+int pkt_tmp14;
+int pkt_tmp20;
+int pkt_tmp23;
+int pkt_tmp24;
+int pkt_tmp25;
+int pkt_tmp30;
+int pkt_tmp5;
+int pkt_tmp7;
+int pkt_tmp8;
+int pkt_tp00;
+int pkt_tp01;
+int pkt_tp02;
+int pkt_tp03;
+int pkt_tp04;
+pkt_tp00=state_2;
+pkt_tc00=state_1;
+pkt_tmp00=pkt_tp00<pkt_1;
+bit pkt_tmp4=!(pkt_tmp00 != 0);
+pkt_tmp5=pkt_tc00<pkt_1;
+pkt_tmp10=(pkt_tmp4 != 0) ? pkt_tmp5 : 0;
+bit pkt_tmp18=!(pkt_tmp00 != 0);
+pkt_tmp7=(pkt_tmp18!= 0)&&(pkt_tmp10!= 0);
+pkt_tmp8=pkt_tp00-pkt_1;
+pkt_tp01=(pkt_tmp7 != 0) ? pkt_tmp8 : pkt_tp00;
+bit pkt_tmp22=!(pkt_tmp00 != 0);
+pkt_tmp23=!(pkt_tmp10!= 0);
+pkt_tmp11=(pkt_tmp22!= 0)&&(pkt_tmp23!= 0);
+pkt_tmp12=pkt_tp01-pkt_1;
+pkt_tp02=(pkt_tmp11 != 0) ? pkt_tmp12 : pkt_tp01;
+pkt_tmp24=!(pkt_tmp00 != 0);
+pkt_tmp25=!(pkt_tmp10!= 0);
+pkt_tmp13=(pkt_tmp24!= 0)&&(pkt_tmp25!= 0);
+pkt_tmp14=pkt_tc00-pkt_1;
+pkt_tc01=(pkt_tmp13 != 0) ? pkt_tmp14 : pkt_tc00;
+pkt_tp03=pkt_tp02+pkt_2;
+pkt_tmp20=pkt_tp03>2;
+pkt_tp04=((pkt_tmp20 != 0)) ? (2) : pkt_tp03;
+pkt_tc02=pkt_tc01+pkt_3;
+pkt_tmp30=pkt_tc02>2;
+pkt_tc03=((pkt_tmp30 != 0)) ? (2) : pkt_tc02;
+state_2=pkt_tp04;
+state_1=pkt_tc03;
+  StateResult ret = new StateResult();
+  ret.result_state_1 = state_1;
+  ret.result_state_2 = state_2;
+  return ret;
+}
+harness void main(int state_1, int state_2, int pkt_1, int pkt_2, int pkt_3, int pkt_4, int pkt_5) {
+  StateResult spec_result = codelet(state_1, state_2, pkt_1, pkt_2, pkt_3, pkt_4, pkt_5);
+
+  StateResult impl_result = atom_template(state_1, state_2, pkt_1, pkt_2, pkt_3, pkt_4, pkt_5);
+
+  // Assert values
+  assert(spec_result.result_state_1 == impl_result.result_state_1);
+  assert(spec_result.result_state_2 == impl_result.result_state_2);
+}
