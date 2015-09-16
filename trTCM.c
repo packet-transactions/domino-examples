@@ -1,5 +1,5 @@
-#define PBS 2000000000
-#define CBS 2000000000
+#define PBS 2
+#define CBS 2
 
 #define PIR 2
 #define CIR 1

@@ -4,3 +4,4 @@ flowlets.c
 rcp.c
 sampling.c
 conga.c
+trTCM.c
