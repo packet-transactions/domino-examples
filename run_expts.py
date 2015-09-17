@@ -29,29 +29,22 @@ atom_template_list = sys.argv[2]
 result_matrix = dict()
 
 # fill in result matrix
-codelet_list = []
 for domino_file in open(domino_file_list, "r").read().splitlines():
+  result_matrix[domino_file] = dict()
   for atom_template in open(atom_template_list, "r").read().splitlines():
     env_vars = os.environ.copy()
     env_vars["ATOM_TEMPLATE"] = atom_template
     out,err = program_wrapper(program = ["domino", domino_file, "int_type_checker,desugar_comp_asgn,if_converter,algebra_simplify,array_validator,stateful_flanks,ssa,expr_propagater,expr_flattener,partitioning,sketch_backend"], environment = env_vars)
     count = 0
+    all_codelets_mapped = True;
     for line in err.splitlines():
       if "with random seed" in line:
         count = count + 1
-
-        # Append codelet to codelet_list if it doesn't exist
-        if (domino_file + str(count)) not in codelet_list:
-          codelet_list += [domino_file + str(count)]
-
-        # Create dictionary if required
-        if (domino_file + str(count)) not in result_matrix:
-          result_matrix[domino_file + str(count)] = dict()
-
         if "succeeded" in line:
-          result_matrix[domino_file + str(count)][atom_template] = 1
+          all_codelets_mapped = all_codelets_mapped and True;
         if "failed" in line:
-          result_matrix[domino_file + str(count)][atom_template] = 0
+          all_codelets_mapped = all_codelets_mapped and False;
+    result_matrix[domino_file][atom_template] = all_codelets_mapped;
 
 # first print out atom templates
 print " "*20,
@@ -60,8 +53,8 @@ for atom_template in open(atom_template_list, "r").read().splitlines():
 print
 
 # Print out result matrix
-for codelet in codelet_list:
-  print "%20s"%codelet,
+for domino_file in open(domino_file_list, "r").read().splitlines():
+  print "%20s"%domino_file,
   for atom_template in open(atom_template_list, "r").read().splitlines():
-    print "%15s"%result_matrix[codelet][atom_template],
+    print "%15s"%result_matrix[domino_file][atom_template],
   print
