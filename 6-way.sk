@@ -5,32 +5,49 @@ StateResult atom_template(int state_1, int state_2, int pkt_1, int pkt_2, int pk
   bit pred_if         = rel_op(mux3(state_1, state_2, ??(3)) + mux4(??(3), pkt_1, pkt_2, pkt_3) - mux4(??(3), pkt_1, pkt_2, pkt_3), 0);
   bit pred_else_if    = rel_op(mux3(state_1, state_2, ??(3)) + mux4(??(3), pkt_1, pkt_2, pkt_3) - mux4(??(3), pkt_1, pkt_2, pkt_3), 0);
 
-  bit pred_if_if      = rel_op(mux3(state_1, state_2, ??(3)) + mux4(??(3), pkt_1, pkt_2, pkt_3) - mux4(??(3), pkt_1, pkt_2, pkt_3), 0);
-  bit pred_else_if_if = rel_op(mux3(state_1, state_2, ??(3)) + mux4(??(3), pkt_1, pkt_2, pkt_3) - mux4(??(3), pkt_1, pkt_2, pkt_3), 0);
-  bit pred_pass_thru_if = rel_op(mux3(state_1, state_2, ??(3)) + mux4(??(3), pkt_1, pkt_2, pkt_3) - mux4(??(3), pkt_1, pkt_2, pkt_3), 0);
+  bit pred_if_1       = rel_op(mux3(state_1, state_2, ??(3)) + mux4(??(3), pkt_1, pkt_2, pkt_3) - mux4(??(3), pkt_1, pkt_2, pkt_3), 0);
+  bit pred_if_2       = rel_op(mux3(state_1, state_2, ??(3)) + mux4(??(3), pkt_1, pkt_2, pkt_3) - mux4(??(3), pkt_1, pkt_2, pkt_3), 0);
+
+  bit pred_else_if_1  = rel_op(mux3(state_1, state_2, ??(3)) + mux4(??(3), pkt_1, pkt_2, pkt_3) - mux4(??(3), pkt_1, pkt_2, pkt_3), 0);
+  bit pred_else_if_2  = rel_op(mux3(state_1, state_2, ??(3)) + mux4(??(3), pkt_1, pkt_2, pkt_3) - mux4(??(3), pkt_1, pkt_2, pkt_3), 0);
+
+  bit pred_else_1     = rel_op(mux3(state_1, state_2, ??(3)) + mux4(??(3), pkt_1, pkt_2, pkt_3) - mux4(??(3), pkt_1, pkt_2, pkt_3), 0);
+  bit pred_else_2     = rel_op(mux3(state_1, state_2, ??(3)) + mux4(??(3), pkt_1, pkt_2, pkt_3) - mux4(??(3), pkt_1, pkt_2, pkt_3), 0);
 
   if (pred_if) {
-   if (pred_if_if) {
+   if (pred_if_1) {
     state_1 = mux4(state_1, pkt_1, pkt_2, ??(3)) + mux4(??(3), pkt_1, pkt_2, pkt_3) - mux4(??(3), pkt_1, pkt_2, pkt_3);
-    state_2 = mux4(state_2, pkt_1, pkt_2, ??(3)) + mux4(??(3), pkt_1, pkt_2, pkt_3) - mux4(??(3), pkt_1, pkt_2, pkt_3);
    } else {
     state_1 = mux4(state_1, pkt_1, pkt_2, ??(3)) + mux4(??(3), pkt_1, pkt_2, pkt_3) - mux4(??(3), pkt_1, pkt_2, pkt_3);
+   }
+
+   if (pred_if_2) {
+    state_2 = mux4(state_2, pkt_1, pkt_2, ??(3)) + mux4(??(3), pkt_1, pkt_2, pkt_3) - mux4(??(3), pkt_1, pkt_2, pkt_3);
+   } else {
     state_2 = mux4(state_2, pkt_1, pkt_2, ??(3)) + mux4(??(3), pkt_1, pkt_2, pkt_3) - mux4(??(3), pkt_1, pkt_2, pkt_3);
    }
   } else if (pred_else_if) {
-   if (pred_else_if_if) {
+   if (pred_else_if_1) {
     state_1 = mux4(state_1, pkt_1, pkt_2, ??(3)) + mux4(??(3), pkt_1, pkt_2, pkt_3) - mux4(??(3), pkt_1, pkt_2, pkt_3);
-    state_2 = mux4(state_2, pkt_1, pkt_2, ??(3)) + mux4(??(3), pkt_1, pkt_2, pkt_3) - mux4(??(3), pkt_1, pkt_2, pkt_3);
    } else {
     state_1 = mux4(state_1, pkt_1, pkt_2, ??(3)) + mux4(??(3), pkt_1, pkt_2, pkt_3) - mux4(??(3), pkt_1, pkt_2, pkt_3);
+   }
+
+   if (pred_else_if_2) {
+    state_2 = mux4(state_2, pkt_1, pkt_2, ??(3)) + mux4(??(3), pkt_1, pkt_2, pkt_3) - mux4(??(3), pkt_1, pkt_2, pkt_3);
+   } else {
     state_2 = mux4(state_2, pkt_1, pkt_2, ??(3)) + mux4(??(3), pkt_1, pkt_2, pkt_3) - mux4(??(3), pkt_1, pkt_2, pkt_3);
    }
   } else {
-   if (pred_pass_thru_if) {
+   if (pred_else_1) {
     state_1 = mux4(state_1, pkt_1, pkt_2, ??(3)) + mux4(??(3), pkt_1, pkt_2, pkt_3) - mux4(??(3), pkt_1, pkt_2, pkt_3);
-    state_2 = mux4(state_2, pkt_1, pkt_2, ??(3)) + mux4(??(3), pkt_1, pkt_2, pkt_3) - mux4(??(3), pkt_1, pkt_2, pkt_3);
    } else {
     state_1 = mux4(state_1, pkt_1, pkt_2, ??(3)) + mux4(??(3), pkt_1, pkt_2, pkt_3) - mux4(??(3), pkt_1, pkt_2, pkt_3);
+   }
+
+   if (pred_else_2) {
+    state_2 = mux4(state_2, pkt_1, pkt_2, ??(3)) + mux4(??(3), pkt_1, pkt_2, pkt_3) - mux4(??(3), pkt_1, pkt_2, pkt_3);
+   } else {
     state_2 = mux4(state_2, pkt_1, pkt_2, ??(3)) + mux4(??(3), pkt_1, pkt_2, pkt_3) - mux4(??(3), pkt_1, pkt_2, pkt_3);
    }
   }
