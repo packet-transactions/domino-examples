@@ -5,11 +5,11 @@ StateResult atom_template(int state_1, int state_2, int pkt_1, int pkt_2, int pk
   bit pred1 = rel_op(mux3(state_1, state_2, ??), mux3(pkt_1, pkt_2, ??));
   bit pred2 = rel_op(mux3(state_1, state_2, ??), mux3(pkt_1, pkt_2, ??));
   if (pred1) {
-    state_1 = mux4(state_1, pkt_1, pkt_2, ??) + mux3(??, pkt_1, pkt_2) - mux3(??, pkt_1, pkt_2);
-    state_2 = mux4(state_2, pkt_1, pkt_2, ??) + mux3(??, pkt_1, pkt_2) - mux3(??, pkt_1, pkt_2);
+    state_1 = mux2(state_1, ??) + mux3(??, pkt_1, pkt_2) - mux3(??, pkt_1, pkt_2);
+    state_2 = mux2(state_2, ??) + mux3(??, pkt_1, pkt_2) - mux3(??, pkt_1, pkt_2);
   } else if (pred2) {
-    state_1 = mux4(state_1, pkt_1, pkt_2, ??) + mux3(??, pkt_1, pkt_2) - mux3(??, pkt_1, pkt_2);
-    state_2 = mux4(state_2, pkt_1, pkt_2, ??) + mux3(??, pkt_1, pkt_2) - mux3(??, pkt_1, pkt_2);
+    state_1 = mux2(state_1, ??) + mux3(??, pkt_1, pkt_2) - mux3(??, pkt_1, pkt_2);
+    state_2 = mux2(state_2, ??) + mux3(??, pkt_1, pkt_2) - mux3(??, pkt_1, pkt_2);
   }
 
   StateResult ret = new StateResult();
