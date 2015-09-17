@@ -30,7 +30,7 @@ StateResult atom_template(int state_1, int state_2, int pkt_1, int pkt_2, int pk
    if (pred_else_if_1) {
     state_1 = mux4(state_1, pkt_1, pkt_2, ??(3)) + mux4(??(3), pkt_1, pkt_2, pkt_3) - mux4(??(3), pkt_1, pkt_2, pkt_3);
    } else {
-    state_1 = mux4(state_1, pkt_1, pkt_2, ??(3)) + mux4(??(3), pkt_1, pkt_2, pkt_3) - mux4(??(3), pkt_1, pkt_2, pkt_3);
+    state_1 = state_1 + mux4(??(3), pkt_1, pkt_2, pkt_3) - mux4(??(3), pkt_1, pkt_2, pkt_3);
    }
 
    if (pred_else_if_2) {

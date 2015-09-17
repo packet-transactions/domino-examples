@@ -6,8 +6,8 @@
 
 struct Packet {
   int size;
-  int color;
-  int time;
+  int f1;
+  int f2;
 };
 
 int tp = PBS;
@@ -16,23 +16,13 @@ int last_time = 0;
 
 void func(struct Packet pkt) {
   if (tp < pkt.size) {
-    pkt.color = 1;
+    tp = tp + pkt.f2 > PBS ? PBS : tp + pkt.f2;
+    tc = tc + pkt.f1 > PBS ? PBS : tc + pkt.f1;
   } else if (tc < pkt.size) {
-    pkt.color = 2;
-    tp = tp - pkt.size;
+    tp = tp - pkt.size + pkt.f2 > PBS ? PBS : tp - pkt.size + pkt.f2;
+    tc = tc + pkt.f1 > PBS ? PBS : tc + pkt.f1;
   } else {
-    pkt.color = 3;
-    tp = tp - pkt.size;
-    tc = tc - pkt.size;
+    tp = tp - pkt.size + pkt.f2 > PBS ? PBS : tp - pkt.size + pkt.f2;
+    tc = tc - pkt.size + pkt.f1 > PBS ? PBS : tc - pkt.size + pkt.f1;
   }
-
-  // Refill logic
-  tp = tp + PIR * (pkt.time - last_time);
-  if (tp > PBS) tp = PBS;
-
-  tc = tc + CIR * (pkt.time - last_time);
-  if (tc > PBS) tc = CBS;
-
-  last_time = pkt.time;
-
 }
