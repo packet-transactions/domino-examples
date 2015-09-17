@@ -2,17 +2,17 @@ include "rel_ops.sk";
 include "muxes.sk";
 
 StateResult atom_template(int state_1, int state_2, int pkt_1, int pkt_2, int pkt_3, int pkt_4, int pkt_5) {
-  bit pred_if         = rel_op(mux3(state_1, state_2, ??(3)) + mux4(??(3), pkt_1, pkt_2, pkt_3) - mux4(??(3), pkt_1, pkt_2, pkt_3), 0);
-  bit pred_else_if    = rel_op(mux3(state_1, state_2, ??(3)) + mux4(??(3), pkt_1, pkt_2, pkt_3) - mux4(??(3), pkt_1, pkt_2, pkt_3), 0);
+  bit pred_if         = rel_op(mux3(state_1, state_2, ??(3)) + mux4(??(3), pkt_1, pkt_2, pkt_3) - mux4(??(3), pkt_1, pkt_2, pkt_3), ??(3));
+  bit pred_else_if    = rel_op(mux3(state_1, state_2, ??(3)) + mux4(??(3), pkt_1, pkt_2, pkt_3) - mux4(??(3), pkt_1, pkt_2, pkt_3), ??(3));
 
-  bit pred_if_1       = rel_op(mux3(state_1, state_2, ??(3)) + mux4(??(3), pkt_1, pkt_2, pkt_3) - mux4(??(3), pkt_1, pkt_2, pkt_3), 0);
-  bit pred_if_2       = rel_op(mux3(state_1, state_2, ??(3)) + mux4(??(3), pkt_1, pkt_2, pkt_3) - mux4(??(3), pkt_1, pkt_2, pkt_3), 0);
+  bit pred_if_1       = rel_op(mux3(state_1, state_2, ??(3)) + mux4(??(3), pkt_1, pkt_2, pkt_3) - mux4(??(3), pkt_1, pkt_2, pkt_3), ??(3));
+  bit pred_if_2       = rel_op(mux3(state_1, state_2, ??(3)) + mux4(??(3), pkt_1, pkt_2, pkt_3) - mux4(??(3), pkt_1, pkt_2, pkt_3), ??(3));
 
-  bit pred_else_if_1  = rel_op(mux3(state_1, state_2, ??(3)) + mux4(??(3), pkt_1, pkt_2, pkt_3) - mux4(??(3), pkt_1, pkt_2, pkt_3), 0);
-  bit pred_else_if_2  = rel_op(mux3(state_1, state_2, ??(3)) + mux4(??(3), pkt_1, pkt_2, pkt_3) - mux4(??(3), pkt_1, pkt_2, pkt_3), 0);
+  bit pred_else_if_1  = rel_op(mux3(state_1, state_2, ??(3)) + mux4(??(3), pkt_1, pkt_2, pkt_3) - mux4(??(3), pkt_1, pkt_2, pkt_3), ??(3));
+  bit pred_else_if_2  = rel_op(mux3(state_1, state_2, ??(3)) + mux4(??(3), pkt_1, pkt_2, pkt_3) - mux4(??(3), pkt_1, pkt_2, pkt_3), ??(3));
 
-  bit pred_else_1     = rel_op(mux3(state_1, state_2, ??(3)) + mux4(??(3), pkt_1, pkt_2, pkt_3) - mux4(??(3), pkt_1, pkt_2, pkt_3), 0);
-  bit pred_else_2     = rel_op(mux3(state_1, state_2, ??(3)) + mux4(??(3), pkt_1, pkt_2, pkt_3) - mux4(??(3), pkt_1, pkt_2, pkt_3), 0);
+  bit pred_else_1     = rel_op(mux3(state_1, state_2, ??(3)) + mux4(??(3), pkt_1, pkt_2, pkt_3) - mux4(??(3), pkt_1, pkt_2, pkt_3), ??(3));
+  bit pred_else_2     = rel_op(mux3(state_1, state_2, ??(3)) + mux4(??(3), pkt_1, pkt_2, pkt_3) - mux4(??(3), pkt_1, pkt_2, pkt_3), ??(3));
 
   if (pred_if) {
    if (pred_if_1) {
