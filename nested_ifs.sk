@@ -1,0 +1,27 @@
+include "muxes.sk";
+include "rel_ops.sk";
+include "arith_ops.sk";
+
+StateResult atom_template(int state_1, int state_2, int pkt_1, int pkt_2, int pkt_3, int pkt_4, int pkt_5) {
+  bit pred_if     = rel_op(abc_arith(state_1, pkt_1, pkt_2), ??);
+  bit predif_if   = rel_op(abc_arith(state_1, pkt_1, pkt_2), ??);
+  bit predelse_if = rel_op(abc_arith(state_1, pkt_1, pkt_2), ??);
+  if (pred_if) {
+   if (predif_if) {
+    state_1 = abc_arith(state_1, pkt_1, pkt_2) + ??;
+   } else {
+    state_1 = abc_arith(state_1, pkt_1, pkt_2) + ??;
+   }
+  } else {
+   if (predelse_if) {
+    state_1 = abc_arith(state_1, pkt_1, pkt_2) + ??;
+   } else {
+    state_1 = abc_arith(state_1, pkt_1, pkt_2) + ??;
+   }
+  }
+
+  StateResult ret = new StateResult();
+  ret.result_state_1 = state_1;
+  ret.result_state_2 = state_2;
+  return ret;
+}
