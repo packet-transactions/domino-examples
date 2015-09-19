@@ -34,7 +34,7 @@ for domino_file in open(domino_file_list, "r").read().splitlines():
   for atom_template in open(atom_template_list, "r").read().splitlines():
     env_vars = os.environ.copy()
     env_vars["ATOM_TEMPLATE"] = atom_template
-    out,err = program_wrapper(program = ["domino", domino_file, "int_type_checker,desugar_comp_asgn,if_converter,algebra_simplify,array_validator,stateful_flanks,ssa,expr_propagater,expr_flattener,partitioning,sketch_backend"], environment = env_vars)
+    out,err = program_wrapper(program = ["domino", domino_file, "int_type_checker,desugar_comp_asgn,if_converter,algebra_simplify,array_validator,stateful_flanks,ssa,expr_propagater,expr_flattener,cse,partitioning,sketch_backend"], environment = env_vars)
     count = 0
     all_codelets_mapped = True;
     for line in err.splitlines():
