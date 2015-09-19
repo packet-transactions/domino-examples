@@ -7,7 +7,9 @@ generator bit predicate(int state_1, int state_2, int pkt_1, int pkt_2) {
 }
 
 generator int arithmetic(int a, int b, int c, int d) {
-  return abc_arith(a, b, c) + mux2(??, d);
+  bit opcode = ??(1);
+  if (opcode == 0) return abc_arith(a, b, c) + mux2(??, d);
+  else return abc_arith(a, b, c) - mux2(??, d);
 }
 
 StateResult atom_template(int state_1, int state_2, int pkt_1, int pkt_2, int pkt_3, int pkt_4, int pkt_5) {
