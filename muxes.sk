@@ -1,10 +1,16 @@
 generator int mux2(int op1, int op2) {
+  bit enable = ??(1);
+  if (! enable) return 0;
+
   int choice = ??(1);
   if (choice == 0) return op1;
   else if (choice == 1) return op2;
 }
 
 generator int mux3(int op1, int op2, int op3) {
+  bit enable = ??(1);
+  if (! enable) return 0;
+
   int choice = ??(2);
   if (choice == 0) return op1;
   else if (choice == 1) return op2;
@@ -13,6 +19,9 @@ generator int mux3(int op1, int op2, int op3) {
 }
 
 generator int mux4(int op1, int op2, int op3, int op4) {
+  bit enable = ??(1);
+  if (! enable) return 0;
+
   int choice = ??(2);
   if (choice == 0) return op1;
   else if (choice == 1) return op2;
