@@ -1,6 +1,6 @@
-#define ALPHA 1
+#define ALPHA 5
 #define GAMMA 2
-#define CAPACITY 1
+#define CAPACITY 10
 #define BUFFER 3
 
 struct Packet {
