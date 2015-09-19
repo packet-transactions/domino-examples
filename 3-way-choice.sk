@@ -2,8 +2,11 @@ include "muxes.sk";
 include "arith_ops.sk";
 include "rel_ops.sk";
 
-generator bit predicate(int state_1, int state_2, int pkt_1, int pkt_2) {
-  return rel_op(abc_arith(mux2(state_1, state_2), pkt_1, pkt_2), ??);
+generator bit predicate(int state_1, int state_2, int pkt_1, int pkt_2, int pkt_3) {
+  bit opcode = ??(1);
+  int result = opcode ? abc_arith(mux2(state_1, state_2), pkt_1, pkt_2) + pkt_3
+                      : abc_arith(mux2(state_1, state_2), pkt_1, pkt_2) - pkt_3;
+  return rel_op(result, ??);
 }
 
 generator int arithmetic(int a, int b, int c, int d) {
@@ -13,35 +16,35 @@ generator int arithmetic(int a, int b, int c, int d) {
 }
 
 StateResult atom_template(int state_1, int state_2, int pkt_1, int pkt_2, int pkt_3, int pkt_4, int pkt_5) {
-  if (predicate(state_1, state_2, pkt_1, pkt_2)) {
-   if (predicate(state_1, state_2, pkt_1, pkt_2)) {
+  if (predicate(state_1, state_2, pkt_1, pkt_2, pkt_3)) {
+   if (predicate(state_1, state_2, pkt_1, pkt_2, pkt_3)) {
     state_1 = arithmetic(state_1, pkt_1, pkt_2, pkt_3);
    } else {
     state_1 = arithmetic(state_1, pkt_1, pkt_2, pkt_3);
    }
-   if (predicate(state_1, state_2, pkt_1, pkt_2)){
+   if (predicate(state_1, state_2, pkt_1, pkt_2, pkt_3)){
     state_2 = arithmetic(state_2, pkt_1, pkt_2, pkt_3);
    } else {
     state_2 = arithmetic(state_2, pkt_1, pkt_2, pkt_3);
    }
-  } else if (predicate(state_1, state_2, pkt_1, pkt_2)) {
-   if (predicate(state_1, state_2, pkt_1, pkt_2)) {
+  } else if (predicate(state_1, state_2, pkt_1, pkt_2, pkt_3)) {
+   if (predicate(state_1, state_2, pkt_1, pkt_2, pkt_3)) {
     state_1 = arithmetic(state_1, pkt_1, pkt_2, pkt_3);
    } else {
     state_1 = arithmetic(state_1, pkt_1, pkt_2, pkt_3);
    }
-   if (predicate(state_1, state_2, pkt_1, pkt_2)){
+   if (predicate(state_1, state_2, pkt_1, pkt_2, pkt_3)){
     state_2 = arithmetic(state_2, pkt_1, pkt_2, pkt_3);
    } else {
     state_2 = arithmetic(state_2, pkt_1, pkt_2, pkt_3);
    }
   } else {
-   if (predicate(state_1, state_2, pkt_1, pkt_2)) {
+   if (predicate(state_1, state_2, pkt_1, pkt_2, pkt_3)) {
     state_1 = arithmetic(state_1, pkt_1, pkt_2, pkt_3);
    } else {
     state_1 = arithmetic(state_1, pkt_1, pkt_2, pkt_3);
    }
-   if (predicate(state_1, state_2, pkt_1, pkt_2)) {
+   if (predicate(state_1, state_2, pkt_1, pkt_2, pkt_3)) {
     state_2 = arithmetic(state_2, pkt_1, pkt_2, pkt_3);
    } else {
     state_2 = arithmetic(state_2, pkt_1, pkt_2, pkt_3);
