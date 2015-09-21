@@ -12,9 +12,9 @@ struct Packet {
   int max_vq;
 };
 
-int vq;
-int capacity;
-int last_time;
+int vq = 0;
+int capacity = 0;
+int last_time = 0;
 
 void func(struct Packet p) {
   // Update virtual queue size
