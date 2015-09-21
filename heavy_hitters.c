@@ -1,4 +1,4 @@
-#include "hashes.h"
+#include "indep_hashes.h"
 
 #define low_th 100
 #define hi_th  1000

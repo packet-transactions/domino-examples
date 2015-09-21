@@ -1,4 +1,4 @@
-#include "hashes.h"
+#include "indep_hashes.h"
 
 struct Packet {
   int sport;
