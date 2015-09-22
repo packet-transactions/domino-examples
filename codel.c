@@ -15,6 +15,11 @@ struct Packet {
   int sojourn_time;
 };
 
+int mysqrt(int val) {
+  // TODO: Fill this up
+  return val + 1;
+}
+
 void func(struct Packet pkt) {
   // dodeque method
   pkt.sojourn_time = pkt.deq_tick - pkt.enq_tick;
@@ -36,7 +41,7 @@ void func(struct Packet pkt) {
     if (pkt.tick >= drop_next && dropping) {
       pkt.drop = 1;
       count += 1;
-      drop_next = drop_next + INTERVAL / count;
+      drop_next = drop_next + INTERVAL / mysqrt(count);
     }
   } else if (pkt.ok_to_drop) {
     pkt.drop = 1;
@@ -45,7 +50,7 @@ void func(struct Packet pkt) {
       count = count - 2;
     } else {
       count = 1;
-      drop_next = pkt.tick + INTERVAL / count;
+      drop_next = pkt.tick + INTERVAL / mysqrt(count);
     }
   }
 }
