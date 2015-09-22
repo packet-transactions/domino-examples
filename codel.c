@@ -17,7 +17,8 @@ struct Packet {
 
 int mysqrt(int val) {
   // TODO: Fill this up
-  return val + 1;
+  if (val > 0) return val;
+  else return 1;
 }
 
 void func(struct Packet pkt) {
