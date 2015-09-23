@@ -1,5 +1,5 @@
 #define TARGET   5
-#define INTERVAL 100
+#define INTERVAL 30
 
 int first_above_time = 0;
 int dropping = 0;
