@@ -1,4 +1,4 @@
-#define MAX_ALLOWABLE_RTT 100
+#define MAX_ALLOWABLE_RTT 30
 
 // Total number of bytes seen so far.
 int input_traffic_Bytes = 0;
