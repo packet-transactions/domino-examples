@@ -1,6 +1,7 @@
 learn_filter.c
 heavy_hitters.c
 flowlets.c
+flowlets_intuitive.c
 rcp.c
 sampling.c
 hull.c
