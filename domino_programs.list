@@ -6,6 +6,8 @@ rcp.c
 sampling.c
 hull.c
 avq.c
+dns_ttl_change.c
+stfq.c
 conga.c
 codel.c
 trTCM.c
