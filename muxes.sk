@@ -6,35 +6,15 @@ generator int Opt(int op1) {
 }
 
 generator int Mux2(int op1, int op2) {
-  bit enable = ??(1);
-  if (! enable) return 0;
-
   int choice = ??(1);
   if (choice == 0) return op1;
   else if (choice == 1) return op2;
 }
 
 generator int Mux3(int op1, int op2, int op3) {
-  bit enable = ??(1);
-  if (! enable) return 0;
-
   int choice = ??(2);
   if (choice == 0) return op1;
   else if (choice == 1) return op2;
   else if (choice == 2) return op3;
   else assert(false);
-}
-
-generator int Mux4(int op1, int op2, int op3, int op4) {
-  bit enable = ??(1);
-  if (! enable) return 0;
-
-  int choice = ??(2);
-  if (choice == 0) return op1;
-  else if (choice == 1) return op2;
-  else if (choice == 2) return op3;
-  else {
-    assert (choice == 3);
-    return op4;
-  }
 }
