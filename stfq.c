@@ -20,8 +20,10 @@ void stfq(struct Packet pkt) {
             % NUM_FLOWS;
 
   if ((last_finish[pkt.id] > TIME_MIN) && (pkt.virtual_time < last_finish[pkt.id])) {
+    pkt.start = last_finish[pkt.id];
     last_finish[pkt.id] += pkt.length;
   } else {
+    pkt.start = pkt.virtual_time;
     last_finish[pkt.id] = pkt.virtual_time + pkt.length;
   }
 }
