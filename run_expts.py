@@ -6,8 +6,8 @@ import subprocess
 import os
 
 # Check if we can compile Domino program to the atom
-def check_compile(domino_file, env_vars, run_preproc):
-  out,err = program_wrapper(program = ["domino", domino_file, "int_type_checker,desugar_comp_asgn,if_converter,algebra_simplify,array_validator,stateful_flanks,ssa,expr_propagater,expr_flattener,cse,partitioning," + ("sketch_preprocessor," if run_preproc else "") + "sketch_backend"], environment = env_vars)
+def check_compile(domino_file, atom_template, run_preproc):
+  out,err = program_wrapper(program = ["domino", domino_file, atom_template, "30", "10", "yes" if run_preproc else ""])
   all_codelets_mapped = True;
   for line in err.splitlines():
     if "with random seed" in line:
@@ -20,8 +20,8 @@ def check_compile(domino_file, env_vars, run_preproc):
 # Program wrapper
 # Takes a command line of program arguements,
 # executes it, and prints something out whether it succeeds or fails
-def program_wrapper(program, environment, t_stdout = subprocess.PIPE, t_stderr = subprocess.PIPE):
-  sp = subprocess.Popen(program, stdout = t_stdout, stderr = t_stderr, env = env_vars)
+def program_wrapper(program, t_stdout = subprocess.PIPE, t_stderr = subprocess.PIPE):
+  sp = subprocess.Popen(program, stdout = t_stdout, stderr = t_stderr)
   out, err = sp.communicate()
   if (sp.returncode != 0):
     print " ".join(program), " failed with stdout:"
@@ -44,16 +44,14 @@ result_matrix = dict()
 for domino_file in open(domino_file_list, "r").read().splitlines():
   result_matrix[domino_file] = dict()
   for atom_template in open(atom_template_list, "r").read().splitlines():
-    env_vars = os.environ.copy()
-    env_vars["ATOM_TEMPLATE"] = atom_template
     all_codelets_mapped = False
     # Run with preprocessor
     print "Running with preprocessor "
-    all_codelets_mapped = check_compile(domino_file, env_vars, True);
+    all_codelets_mapped = check_compile(domino_file, atom_template, True);
     # Run without preprocessor
     if (all_codelets_mapped == False):
       print "Failed to map, running without preprocessor "
-      all_codelets_mapped = check_compile(domino_file, env_vars, False)
+      all_codelets_mapped = check_compile(domino_file, atom_template, False)
     result_matrix[domino_file][atom_template] = all_codelets_mapped;
 
 # first print out atom templates
