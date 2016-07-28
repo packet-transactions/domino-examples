@@ -84,6 +84,30 @@ int hash2(int a, int b) {
   return crc16(buf, 2 * sizeof(int));
 }
 
+// Hash two values
+int hash2a(int a, int b) {
+  unsigned char buf[2 * sizeof(int)];
+  *(int *)buf = a;
+  *((int *)(buf + sizeof(int))) = b;
+  return crc16(buf, 2 * sizeof(int));
+}
+
+// Hash two values
+int hash2b(int a, int b) {
+  unsigned char buf[2 * sizeof(int)];
+  *(int *)buf = a;
+  *((int *)(buf + sizeof(int))) = b;
+  return crc16(buf, 2 * sizeof(int));
+}
+
+// Hash two values
+int hash2c(int a, int b) {
+  unsigned char buf[2 * sizeof(int)];
+  *(int *)buf = a;
+  *((int *)(buf + sizeof(int))) = b;
+  return crc16(buf, 2 * sizeof(int));
+}
+
 // Hash three values
 int hash3(int a, int b, int c) {
   unsigned char buf[3 * sizeof(int)];
