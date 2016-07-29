@@ -1,0 +1,7 @@
+BEGIN { int count = 0; }
+BEG_G {
+    count = count + 1;
+    if(count == 2) {
+        write($G);
+    }
+}
