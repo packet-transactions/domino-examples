@@ -1,7 +1,7 @@
-rw.sk
-raw.sk
-pred_raw.sk
-if_else_raw.sk
-sub.sk
-nested_ifs.sk
-pair.sk
+banzai_atoms/rw.sk
+banzai_atoms/raw.sk
+banzai_atoms/pred_raw.sk
+banzai_atoms/if_else_raw.sk
+banzai_atoms/sub.sk
+banzai_atoms/nested_ifs.sk
+banzai_atoms/pair.sk
