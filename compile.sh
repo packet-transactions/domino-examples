@@ -9,7 +9,7 @@ atom_template=$2
 pipeline_depth=$3
 pipeline_width=$4
 
-~/domino/pytoc.py $domino_program > /tmp/file.c
+~/domino-compiler/pytoc.py $domino_program > /tmp/file.c
 domino /tmp/file.c $atom_template $pipeline_depth $pipeline_width 2> /tmp/error.log > /tmp/out.log
 
 if grep --quiet "exceeds allowed pipeline" /tmp/error.log; then
