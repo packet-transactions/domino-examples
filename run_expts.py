@@ -9,7 +9,7 @@ import os
 def check_compile(domino_file, atom_template, run_preproc):
   out,err = program_wrapper(program = ["domino", domino_file, atom_template, "30", "10", "yes" if run_preproc else ""])
   codelet_mappings = []
-  for line in err.splitlines():
+  for line in out.splitlines():
     if "with random seed" in line:
       if "succeeded" in line:
         codelet_mappings += [True]
