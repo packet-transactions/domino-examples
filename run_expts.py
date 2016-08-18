@@ -8,14 +8,17 @@ import os
 # Check if we can compile Domino program to the atom
 def check_compile(domino_file, atom_template, run_preproc):
   out,err = program_wrapper(program = ["domino", domino_file, atom_template, "30", "10", "yes" if run_preproc else ""])
-  all_codelets_mapped = True;
+  codelet_mappings = []
   for line in err.splitlines():
     if "with random seed" in line:
       if "succeeded" in line:
-        all_codelets_mapped = all_codelets_mapped and True;
-      if "failed" in line:
-        all_codelets_mapped = all_codelets_mapped and False;
-  return all_codelets_mapped;
+        codelet_mappings += [True]
+      elif "failed" in line:
+        codelet_mappings += [False]
+      else:
+        assert(False)
+  assert(len(codelet_mappings) > 0)
+  return all(codelet_mappings)
 
 # Program wrapper
 # Takes a command line of program arguements,
