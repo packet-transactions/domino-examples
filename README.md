@@ -1,3 +1,5 @@
+Prerequisites: graphviz binaries
+
 Repository containing example data-plane algorithms and
 atom templates to generate matrix of results.
 

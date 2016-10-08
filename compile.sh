@@ -23,5 +23,5 @@ else
   grep "stages" /tmp/out.log
   grep "atoms/stage" /tmp/out.log
   gvpr -f secondgraph.gv /tmp/error.log | neato -n -T png > /tmp/pipeline.png
-  open /tmp/pipeline.png
+  echo "Pipeline diagram at /tmp/pipeline.png"
 fi
