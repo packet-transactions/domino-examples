@@ -19,14 +19,14 @@ void func(struct Packet p) {
   p.now_plus_free = p.now - FREEZE_TIME;
 // cond1 and link_idle can be checked for in the match part of the programmable match-action table
 //  p.cond1 = (p.qlen > QMAX) || (p.loss);
-// Separate tranaction when q exceeds QMAX or on packet loss
+// Separate transaction when q exceeds QMAX or on packet loss (higher priority?)
 //  if (p.cond1) {
   if (p.now_plus_free > last_update) {
      p_mark = p_mark + DELTA1;
      last_update = p.now;
   }
 
-// Separate transaction when link goes idle
+// Separate transaction when link goes idle (lower priority?)
 //  if (p.link_idle) {
 //    if (p.now - last_update > FREEZE_TIME) {
 //      p_mark = p_mark - DELTA2;
