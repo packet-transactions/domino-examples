@@ -8,28 +8,29 @@ struct Packet {
   int qlen;
   int now;
   int link_idle;
-}
+  int cond1;
+  int now_plus_free;
+};
 
 int last_update;
 int p_mark;
 
 void func(struct Packet p) {
-  if (p.qlen > QMAX) {
-    if (p.now - last_update > FREEZE_TIME) {
-      p_mark = p_mark + DELTA1;
-      last_update = p.now;
-    }
-  } else if (p.loss) {
-    if (p.now - last_update > FREEZE_TIME) {
-      p_mark = p_mark + DELTA1;
-      last_update = p.now;
-    }
+  p.now_plus_free = p.now - FREEZE_TIME;
+// cond1 and link_idle can be checked for in the match part of the programmable match-action table
+//  p.cond1 = (p.qlen > QMAX) || (p.loss);
+// Separate tranaction when q exceeds QMAX or on packet loss
+//  if (p.cond1) {
+  if (p.now_plus_free > last_update) {
+     p_mark = p_mark + DELTA1;
+     last_update = p.now;
   }
 
-  if (p.link_idle) {
-    if (p.now - last_update > FREEZE_TIME) {
-      p_mark = p_mark + DELTA2;
-      last_update = p.now;
-    }
-  }
+// Separate transaction when link goes idle
+//  if (p.link_idle) {
+//    if (p.now - last_update > FREEZE_TIME) {
+//      p_mark = p_mark - DELTA2;
+//      last_update = p.now;
+//    }
+//  }
 }
