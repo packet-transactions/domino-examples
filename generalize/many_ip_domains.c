@@ -1,6 +1,9 @@
 #define ARRAY_SIZE 1000000
 #define THRESHOLD 1000
 
+// Note that flipping domains and IPs still allows this
+// example to work (SNAP-Policy 2)
+
 // Suppose an attacker tries to avoid blocking ac-
 // cess to his malicious IP through a specific DNS domain
 // by frequently changing the domain name that relates to
