@@ -8,6 +8,7 @@ struct Packet {
   int tmpval; // temporary variable for holding value
   int ckey;   // current key
   int cval;   // current val
+  int key_exists; // variable to track if key exists to give the compiler a leg up
 };
 
 int array1key[ARRAY_SIZE] = {0};
@@ -19,15 +20,23 @@ void func(struct Packet p) {
  // First stage
  p.loc = hash2(p.ikey, p.ikey); // Compute location using hash
  if (array1key[p.loc] == p.ikey) { // if key already exists
-   array1val[p.loc] = array1val[p.loc] + 1; // increment
+   p.key_exists = 1;
  } else if (array1key[p.loc] == 0) { // if it doesn't
+   p.key_exists = 0;
    array1key[p.loc] = p.ikey;          // initialize key
-   array1val[p.loc] = 1;              // initialize value
  } else {                              // if something else exists
+   p.key_exists = 2;
    p.ckey = array1key[p.loc];         // swap
-   p.cval = array1val[p.loc];
    array1key[p.loc] = p.ikey;
-   array1val[p.loc] = 1; 
+ }
+
+ if (p.key_exists == 1) {
+   array1val[p.loc] = array1val[p.loc] + 1; // increment
+ } else if (p.key_exists == 0) {
+   array1val[p.loc] = 1;              // initialize value
+ } else {
+   p.cval = array1val[p.loc];
+   array1val[p.loc] = 1;              // initialize value
  }
 
 // // Second stage
