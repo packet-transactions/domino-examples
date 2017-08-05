@@ -21,6 +21,7 @@ int min_path_util[NUM_TORS] = {0};// min. path util. for each dst TOR from this 
 int update_time[NUM_TORS] = {0}; // last time the min_path_util was updated
 int best_hop[NUM_TORS] = {0}; // best next hop for each dst TOR
 
+// This is triggered by the arrival of probe packets
 void func(struct Packet p) {
   // TODO: Fix compiler
   p.dst_tor = p.dst_tor;
