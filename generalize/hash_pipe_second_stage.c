@@ -19,9 +19,11 @@ void func(struct Packet p) {
  p.loc = hash2(p.ckey, p.ckey);             // compute location
  if (array2key[p.loc] == p.ckey) {     // key already exists
    array2val[p.loc] = array2val[p.loc] + p.cval; // add cval
+   p.terminate = 1;
  } else if (array2key[p.loc] == 0) {  // empty slot
    array2key[p.loc] = p.ckey;          // init. key
    array2val[p.loc] = p.cval;          // init. value
+   p.terminate = 1;
  } else if (array2val[p.loc] < p.cval) { // compare
    p.tmpkey = array2key[p.loc];        // swap
    p.tmpval = array2val[p.loc];
