@@ -16,10 +16,10 @@ int last_update;
 int p_mark;
 
 void func(struct Packet p) {
-
+    p.now_plus_free = p.now - FREEZE_TIME;
 // Run when link goes idle (lower priority?)
 //  if (p.link_idle) {
-    if (p.now - last_update > FREEZE_TIME) {
+    if (p.now_plus_free > last_update) {
       p_mark = p_mark - DELTA2;
       last_update = p.now;
     }
