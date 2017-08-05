@@ -20,7 +20,7 @@ void func(struct Packet p) {
  p.loc = hash2(p.ikey, 0); // Compute location using hash
  if (array1key[p.loc] == p.ikey) { // if key already exists
    array1val[p.loc] = array1val[p.loc] + 1; // increment
- } else if (array1key[p.loc] == -1) { // if it doesn't
+ } else if (array1key[p.loc] == 0) { // if it doesn't
    array1key[p.loc] = p.ikey;          // initialize key
    array1val[p.loc] = 1;              // initialize value
  } else {                              // if something else exists
@@ -34,7 +34,7 @@ void func(struct Packet p) {
  p.loc = hash2(p.ckey, 0);             // compute location
  if (array2key[p.loc] == p.ckey) {     // key already exists
    array2val[p.loc] = array2val[p.loc] + p.cval; // add cval
- } else if (array1key[p.loc] == -1) {  // empty slot
+ } else if (array1key[p.loc] == 0) {  // empty slot
    array2key[p.loc] = p.ckey;          // init. key
    array2val[p.loc] = p.cval;          // init. value
  } else if (array2val[p.loc] < p.cval) { // compare
