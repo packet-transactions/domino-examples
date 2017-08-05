@@ -10,6 +10,9 @@ struct Packet {
   int terminate; // don't run second and subsequent stages
 };
 
+// Assume
+// For keys that don't exist: key and value are both 0,
+// For keys that do exist: key and value are both non-zero
 int array2key[ARRAY_SIZE] = {0};
 int array2val[ARRAY_SIZE] = {0};
 
@@ -20,13 +23,13 @@ void func(struct Packet p) {
  if (array2key[p.loc] == p.ckey) {     // key already exists
    array2val[p.loc] = array2val[p.loc] + p.cval; // add cval
    p.terminate = 1;
- } else if (array2val[p.loc] < p.cval) {
+ } else if (array2val[p.loc] < p.cval) { // Assume array2val[p.loc] == 0 => key doesn't exist
    p.tmpkey = array2key[p.loc];        // swap
    p.tmpval = array2val[p.loc];
    array2key[p.loc] = p.ckey;
    array2val[p.loc] = p.cval;
-   p.ckey = p.tmpkey;
+   p.ckey = p.tmpkey; // these assignments are spurious if terminate is set
    p.cval = p.tmpval;
-   p.terminate = (array2key[p.loc] == 0);
+   p.terminate = (array2val[p.loc] == 0);
  }
 }
