@@ -14,6 +14,7 @@ struct Packet {
   int cur_time;  // current time; again has to be in packet in Domino
   int flow_hash;    // should update or not?
   int new_flowlet;  // detected a new flowlet
+  int tmp;          // temporary variable for holding best_hop (AGAIN our compiler doesn't work)
 };
 
 int best_hop[NUM_TORS] = {0}; // best next hop for each dst TOR
@@ -27,7 +28,8 @@ void func(struct Packet p) {
   p.meta_data_dst_tor = p.meta_data_dst_tor;
 
   if (p.cur_time - flowlet_time[p.flow_hash] > FLOWLET_TOUT) {
-    flowlet_hop[p.flow_hash] = best_hop[p.meta_data_dst_tor];
+    p.tmp = best_hop[p.meta_data_dst_tor];
+    flowlet_hop[p.flow_hash] = p.tmp;
   }
 
   p.meta_data_nxt_hop = flowlet_hop[p.flow_hash];
