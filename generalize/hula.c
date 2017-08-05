@@ -1,7 +1,5 @@
-// TODO: This needs to run on the egress pipeline,
-// not the ingress because that's where the link utilization is available.
-// Flowlet switching runs on the ingress pipeline, so we need a mechanism
-// to occasionally sync up the ingress and egress pipelines. 
+// This runs on the ingress pipeline, with the link util (p.link_util)
+// lazily synced up to the ingress pipeline.
 
 // Constants
 #define NUM_TORS 1000
@@ -35,7 +33,6 @@ void func(struct Packet p) {
   // If path util is less than min_path_util for the dst TOR
   // (or) it's been a while since you updated the min_path_util
   // , then update min_path_util and update_time
-  // Ask Naga if all the dst_tor ares from the probe header
   p.cur_time_sub = p.cur_time - KEEP_ALIVE_THRESH;
   if (min_path_util[p.dst_tor] > p.path_util) {
     min_path_util[p.dst_tor] = p.path_util;
@@ -53,6 +50,6 @@ void func(struct Packet p) {
   }
 
   // set path utilization to whatever is in min_path_util
-  // this seems redundant, ask Naga why this is there?
+  // Required to multicast the packet onward.
   p.path_util = min_path_util[p.dst_tor];
 }
