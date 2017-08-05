@@ -27,9 +27,6 @@ void func(struct Packet p) {
   p.meta_data_dst_tor = p.meta_data_dst_tor;
 
   if (p.cur_time - flowlet_time[p.flow_hash] > FLOWLET_TOUT) {
-    p.new_flowlet = 1;
-  }
-  if (p.new_flowlet) {
     flowlet_hop[p.flow_hash] = best_hop[p.meta_data_dst_tor];
   }
 
