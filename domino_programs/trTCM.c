@@ -16,11 +16,14 @@ int last_time = 0;
 
 void func(struct Packet pkt) {
   if (tp < pkt.size) {
+    // exceeds peak rate (PIR) (red)
     pkt.color = 1;
   } else if (tc < pkt.size) {
+    // exceeds commitited, but not peak (orange)
     pkt.color = 2;
     tp = tp - pkt.size;
   } else {
+    // within both peak and committed rates (green)
     pkt.color = 3;
     tp = tp - pkt.size;
     tc = tc - pkt.size;
