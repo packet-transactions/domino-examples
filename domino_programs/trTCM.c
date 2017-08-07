@@ -31,7 +31,7 @@ void func(struct Packet pkt) {
   if (tp > PBS) tp = PBS;
 
   tc = tc + CIR * (pkt.time - last_time);
-  if (tc > PBS) tc = CBS;
+  if (tc > CBS) tc = CBS;
 
   last_time = pkt.time;
 
