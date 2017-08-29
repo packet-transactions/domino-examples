@@ -1,0 +1,16 @@
+                               banzai_atoms/rw.sk banzai_atoms/raw.sk banzai_atoms/pred_raw.sk banzai_atoms/if_else_raw.sk banzai_atoms/sub.sk banzai_atoms/nested_ifs.sk banzai_atoms/pair.sk
+generalize/blue_decrease.c           False           False           False           False            True            True            True
+generalize/blue_increase.c           False           False            True            True            True            True            True
+generalize/ftp_monitoring.c          False           False            True            True            True            True            True
+generalize/hash_pipe_first_stage.c   False           False           False            True            True            True            True
+generalize/hash_pipe_second_stage.c  False           False           False           False           False           False            True
+generalize/hula_forwarding.c         False           False            True            True            True            True            True
+generalize/hula_probe.c              False           False           False           False           False           False            True
+generalize/many_ip_domains.c         False           False            True            True            True            True            True
+generalize/marple_new_flow.c         False           False            True            True            True            True            True
+generalize/marple_tcp_nmo.c          False           False            True            True            True            True            True
+    generalize/red.c                 False           False           False           False           False           False           False
+generalize/snap_heavy_hitter.c       False           False           False           False           False           False            True
+generalize/spam-detection.c          False           False           False           False           False           False            True
+generalize/stateful_fw.c             False           False            True            True            True            True            True
+generalize/superspreader.c           False           False           False           False           False            True            True
