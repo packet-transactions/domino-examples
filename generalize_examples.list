@@ -1,0 +1,15 @@
+generalize/blue_decrease.c
+generalize/blue_increase.c
+generalize/ftp_monitoring.c
+generalize/hash_pipe_first_stage.c
+generalize/hash_pipe_second_stage.c
+generalize/hula_forwarding.c
+generalize/hula_probe.c
+generalize/many_ip_domains.c
+generalize/marple_new_flow.c
+generalize/marple_tcp_nmo.c
+generalize/red.c
+generalize/snap_heavy_hitter.c
+generalize/spam-detection.c
+generalize/stateful_fw.c
+generalize/superspreader.c
