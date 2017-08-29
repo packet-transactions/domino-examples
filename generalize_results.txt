@@ -1,4 +1,5 @@
-                               banzai_atoms/rw.sk banzai_atoms/raw.sk banzai_atoms/pred_raw.sk banzai_atoms/if_else_raw.sk banzai_atoms/sub.sk banzai_atoms/nested_ifs.sk banzai_atoms/pair.sk
+                                     rw.sk           raw.sk          pred_raw.sk if_else_raw.sk      sub.sk         nested_ifs.sk   pair.sk
+
 generalize/hula_probe.c              False           False           False           False           False           False            True
 generalize/hula_forwarding.c         False           False            True            True            True            True            True
 generalize/blue_increase.c           False           False            True            True            True            True            True
@@ -13,4 +14,4 @@ generalize/snap_heavy_hitter.c       False           False           False      
 generalize/spam-detection.c          False           False           False           False           False           False            True
 generalize/stateful_fw.c             False           False            True            True            True            True            True
 generalize/superspreader.c           False           False           False           False           False            True            True
-generalize/red.c                 False           False           False           False           False           False           False
+generalize/red.c                     False           False           False           False           False           False           False
