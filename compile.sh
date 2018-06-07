@@ -16,9 +16,8 @@ if grep --quiet "exceeds allowed pipeline" /tmp/error.log; then
   grep "exceeds allowed pipeline" /tmp/error.log;
 elif grep --quiet "Sketch Not Resolved" /tmp/error.log; then
   echo "Failed to find mapping: atom isn't expressive enough"
-#  grep "Sketch failed " /tmp/error.log;
   exit;
-elif grep --quiet "Sketch failed" /tmp/error.log; then
+elif grep --quiet "Sketch failed" /tmp/out.log; then
   echo "Failed to find mapping: other reasons"
   exit;
 else
