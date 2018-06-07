@@ -18,6 +18,9 @@ elif grep --quiet "Sketch Not Resolved" /tmp/error.log; then
   echo "Failed to find mapping: atom isn't expressive enough"
 #  grep "Sketch failed " /tmp/error.log;
   exit;
+elif grep --quiet "Sketch failed" /tmp/error.log; then
+  echo "Failed to find mapping: other reasons"
+  exit;
 else
   echo "Found a mapping"
   grep "stages" /tmp/out.log
