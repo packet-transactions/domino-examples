@@ -1,6 +1,6 @@
 #! /bin/bash
-if [ $# -ne 4 ]; then
-  echo "Usage: ./compile.sh domino_program atom_template pipeline_depth pipeline_width";
+if [ $# -ne 5 ]; then
+  echo "Usage: ./compile.sh domino_program atom_template pipeline_depth pipeline_width run_preproc";
   exit;
 fi;
 
@@ -8,8 +8,9 @@ domino_program=$1
 atom_template=$2
 pipeline_depth=$3
 pipeline_width=$4
+run_preproc=$5
 
-domino $domino_program $atom_template $pipeline_depth $pipeline_width 2> /tmp/error.log > /tmp/out.log
+domino $domino_program $atom_template $pipeline_depth $pipeline_width $run_preproc 2> /tmp/error.log > /tmp/out.log
 
 if grep --quiet "exceeds allowed pipeline" /tmp/error.log; then
   echo "Failed to find mapping: pipeline is too small"
